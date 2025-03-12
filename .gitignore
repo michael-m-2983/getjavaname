@@ -1,0 +1,5 @@
+# Sample class files
+*.class
+
+# Binaries
+getjavaname
