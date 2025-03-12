@@ -38,7 +38,9 @@ void read_cp_entry(uint32_t index, FILE *fp) {
   switch (entry_type) {
   case 7:    // Class - 2 bytes of data
   case 8:    // String - 2 bytes of data
-  case 16: { // MethodType - 2 bytes of data
+  case 16:   // MethodType - 2 bytes of data
+  case 19:   // Module - 2 bytes of data
+  case 20: { // Package - 2 bytes of data
     fseek(fp, 2, SEEK_CUR);
     break;
   }
@@ -52,7 +54,9 @@ void read_cp_entry(uint32_t index, FILE *fp) {
   case 3:    // Integer - 4 bytes of data
   case 4:    // Foat - 4 bytes of data
   case 12:   // Nameandtype - 4 bytes of data
-  case 14: { // Invokedynamic - 4 bytes of data
+  case 14:   // Invokedynamic - 4 bytes of data
+  case 17:   // Constant dynamic - 4 bytes of data
+  case 18: { // Invokedynamic again - 4 bytes of data
     fseek(fp, 4, SEEK_CUR);
     break;
   }
@@ -117,7 +121,7 @@ int main(int argc, char **argv) {
   }
 
   // Skip the access flags, because they are not useful.
-  fseek(fp, 2, SEEK_CUR); 
+  fseek(fp, 2, SEEK_CUR);
 
   // Read the 'this_class' constant pool index.
   uint16_t cp_index_thisclass = 0;
@@ -144,8 +148,8 @@ int main(int argc, char **argv) {
   name_length = ntohs(name_length);
 
   // Read all bytes of the string into a buffer
-  uint8_t *name_bytes = (uint8_t *) calloc(name_length, sizeof(uint8_t));
-  if(fread(name_bytes, sizeof(uint8_t), name_length, fp) != name_length) {
+  uint8_t *name_bytes = (uint8_t *)calloc(name_length, sizeof(uint8_t));
+  if (fread(name_bytes, sizeof(uint8_t), name_length, fp) != name_length) {
     perror("Failed to get the class name: ");
     free(name_bytes);
     fclose(fp);
@@ -153,11 +157,10 @@ int main(int argc, char **argv) {
   }
 
   // Print the name of the class
-  for(int i = 0; i < name_length; i++) {
+  for (int i = 0; i < name_length; i++) {
     printf("%c", name_bytes[i]);
   }
   printf("\n");
-
 
   free(name_bytes);
   fclose(fp);

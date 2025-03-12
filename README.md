@@ -17,4 +17,4 @@ getjavaname Main.class
 
 ## References
 
-- Ch. 4 of the JVM Spec: "The class file format" - <https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html#jvms-4.4.1>
+- Ch. 4 of the JVM Spec: "The class file format" - <https://docs.oracle.com/javase/specs/jvms/se20/html/jvms-4.html#jvms-4.4.10>
