@@ -1,13 +1,13 @@
 # getjavaname
 
-A very simple C program that extracts the classname of a java class file.
+A C program that prints the class name of a Java class file to `stdout`.
 
 ## Usage
 
 ```sh
 git clone https://github.com/michael-m-2983/getjavaname.git
 cd getjavaname
-make install # This will install the program to /usr/local/bin
+sudo make install # This will install the program to /usr/local/bin
 
 # ...
 
